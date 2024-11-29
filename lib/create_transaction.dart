@@ -34,8 +34,7 @@ class _CreateTransactionState extends State<CreateTransaction> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController transactionCodeController = TextEditingController();
   final TextEditingController purposeController = TextEditingController();
-
-  String? selectedCivilStatus; // To store the selected civil status
+  final TextEditingController civilStatusController = TextEditingController();
 
   // Define the civil statuses
   final List<String> civilStatuses = [
@@ -52,9 +51,9 @@ Future<void> _create_transactions() async {
     final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
     );
 
     final conn = await MySqlConnection.connect(connectionSettings);
@@ -70,7 +69,7 @@ Future<void> _create_transactions() async {
         bdayController.text,
         bplaceController.text,
         sexController.text,
-        selectedCivilStatus,
+        civilStatusController.text,
         purposeController.text,
         'N/A',
         'N/A',
@@ -116,11 +115,11 @@ Future<void> _create_transactions() async {
 
   Future<void> fetchData() async {
     final conn = await MySqlConnection.connect(ConnectionSettings(
-       host: 'sql12.freesqldatabase.com',
+        host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
     ));
 
     try {
@@ -134,9 +133,10 @@ Future<void> _create_transactions() async {
           nameController.text = userData!['complete_name'] ?? '';
           sexController.text = userData!['sex'] ?? '';
           bdayController.text = userData!['bday'] ?? '';
-          bplaceController.text = userData!['bplace'] ?? '';
+          bplaceController.text = userData!['place_of_birth'] ?? '';
           addressController.text = userData!['purok'] ?? '';
           phoneController.text = userData!['phone'] ?? '';
+          civilStatusController.text = userData!['civil_status'] ?? '';
         });
       }
     } catch (e) {
@@ -224,23 +224,12 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 10),
-                DropdownButtonFormField<String>(
-                  value: selectedCivilStatus,
+                TextFormField(
+                  controller: civilStatusController,
                   decoration: InputDecoration(
-                    labelText: 'Civil Status',
+                    labelText: 'Purpose',
                     border: OutlineInputBorder(),
                   ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCivilStatus = newValue;
-                    });
-                  },
-                  items: civilStatuses.map((String status) {
-                    return DropdownMenuItem<String>(
-                      value: status,
-                      child: Text(status),
-                    );
-                  }).toList(),
                 ),
                 SizedBox(height: 10),
                 TextFormField(

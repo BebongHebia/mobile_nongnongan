@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:nongnongan_mobile/forgot_password.dart';
 import 'package:nongnongan_mobile/home_page.dart';
 import 'create_account.dart';
 
@@ -21,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
       );
 
       // Establish a connection
@@ -134,7 +135,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Handle "Forgot Password" logic here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                      );
                     },
                     child: Text('Forgot Password?'),
                   ),

@@ -3,7 +3,6 @@ import 'package:mysql1/mysql1.dart';
 import 'package:nongnongan_mobile/home_page.dart';
 import 'package:nongnongan_mobile/kap_calendar.dart';
 import 'package:nongnongan_mobile/login.dart';
-import 'package:nongnongan_mobile/org_chart.dart';
 import 'package:nongnongan_mobile/requests.dart';
 import 'package:nongnongan_mobile/view_announcement.dart'; // Import the view screen for announcements
 
@@ -30,9 +29,9 @@ class _AnnouncementsState extends State<Announcements> {
       final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
       ));
 
       var results = await conn.query('SELECT * FROM announcements ORDER BY created_at DESC');
@@ -131,20 +130,7 @@ class _AnnouncementsState extends State<Announcements> {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.group),
-              title: Text('Organizational Chart'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => OrgChart(
-                          userId: widget.userId,
-                          complete_name: widget.complete_name,
-                          phone: widget.phone)),
-                );
-              },
-            ),
+            
             Divider(),
             ListTile(
               leading: Icon(Icons.logout),

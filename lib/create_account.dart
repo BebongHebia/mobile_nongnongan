@@ -7,13 +7,56 @@ class CreateAccountPage extends StatefulWidget {
   _CreateAccountPageState createState() => _CreateAccountPageState();
 }
 
+
+  final List<String> civilStatusOptions = [
+  'Single',
+  'Married',
+  'Widowed',
+  'Divorced',
+];
+
+final List<String> regionOptions = [
+  'Region I - Ilocos Region',
+  'Region II - Cagayan Valley',
+  'Region III - Central Luzon',
+  'Region IV-A - CALABARZON',
+  'MIMAROPA Region',
+  'Region V - Bicol Region',
+  'Region VI - Western Visayas',
+  'Region VII - Central Visayas',
+  'Region VIII - Eastern Visayas',
+  'Region IX - Zamboanga Peninsula',
+  'Region X - Northern Mindanao',
+  'Region XI - Davao Region',
+  'Region XII - SOCCSKSARGEN',
+  'Region XIII - Caraga',
+  'NCR',
+  'CAR',
+  'BARMM',
+];
+
 class _CreateAccountPageState extends State<CreateAccountPage> {
+
+// Selected values for dropdowns
+  String? _selectedCivilStatus;
+  String? _selectedRegion;
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _bdayController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+
+  // Controllers for new attributes
+  final TextEditingController _civilStatusController = TextEditingController();
+  final TextEditingController _placeOfBirthController = TextEditingController();
+  final TextEditingController _citizenshipController = TextEditingController();
+  final TextEditingController _regionController = TextEditingController();
+  final TextEditingController _provinceController = TextEditingController();
+  final TextEditingController _cityMuniController = TextEditingController();
+  final TextEditingController _barangayController = TextEditingController();
+  final TextEditingController _professionController = TextEditingController();
 
   final List<int> _purokOptions = List<int>.generate(19, (index) => index + 1);
   int? _selectedPurok;
@@ -32,20 +75,32 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
       );
 
       final conn = await MySqlConnection.connect(connectionSettings);
 
-      var result = await conn.query(
-        'INSERT INTO users (complete_name, purok, sex, bday, phone, role, status, username, user_password, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      await conn.query(
+        '''
+        INSERT INTO users 
+        (complete_name, purok, sex, bday, civil_status, place_of_birth, citizenship, region, province, city_muni, barangay, profession, phone, role, status, username, user_password, password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''',
         [
           _nameController.text,
           _selectedPurok,
           _selectedSex,
           _bdayController.text,
+          _selectedCivilStatus,
+          _placeOfBirthController.text,
+          _citizenshipController.text,
+          _selectedRegion,
+          _provinceController.text,
+          _cityMuniController.text,
+          _barangayController.text,
+          _professionController.text,
           _phoneController.text,
           'User',
           'Active',
@@ -88,8 +143,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Account'),
@@ -176,38 +235,123 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   onTap: () => _selectDate(context),
                 ),
 
+                // New Fields
+                SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  value: _selectedCivilStatus,
+                  items: civilStatusOptions.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedCivilStatus = newValue;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Civil Status',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _placeOfBirthController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Place of Birth',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _citizenshipController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Citizenship',
+                  ),
+                ),
+                SizedBox(height: 20),
+                 SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  value: _selectedRegion,
+                  items: regionOptions.map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedRegion = newValue;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Region',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _provinceController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Province',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _cityMuniController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'City/Municipality',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _barangayController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Barangay',
+                  ),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _professionController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Profession',
+                  ),
+                ),
+
                 // Phone Number TextField
                 SizedBox(height: 20),
                 TextField(
                   controller: _phoneController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Enter Phone Number',
+                    labelText: 'Phone Number',
                   ),
                 ),
 
-                // Username TextField
+                // Username and Password Fields (as before)
                 SizedBox(height: 20),
                 TextField(
                   controller: _usernameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Enter Username',
+                    labelText: 'Username',
                   ),
                 ),
-
-                // Password TextField
                 SizedBox(height: 20),
                 TextField(
                   controller: _passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Enter Password',
+                    labelText: 'Password',
                   ),
                 ),
-
-                // Confirm Password TextField
                 SizedBox(height: 20),
                 TextField(
                   controller: _confirmPasswordController,

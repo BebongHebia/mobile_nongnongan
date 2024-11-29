@@ -26,11 +26,11 @@ class _ProfilePicState extends State<ProfilePic> {
 
   Future<void> _loadProfilePicture() async {
   var settings = ConnectionSettings(
-    host: 'sql12.freesqldatabase.com',
-    port: 3306,
-    user: 'sql12745725',
-    db: 'sql12745725',
-    password: 'dexel9dQ9R',
+        host: 'sql12.freesqldatabase.com',
+        port: 3306,
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
   );
 
   try {
@@ -79,16 +79,13 @@ class _ProfilePicState extends State<ProfilePic> {
   }
 }
 
-
-
-
   Future<void> _updateProfilePicture(Uint8List imageBytes) async {
     var settings = ConnectionSettings(
-      host: 'sql12.freesqldatabase.com',
-      port: 3306,
-      user: 'sql12745725',
-      db: 'sql12745725',
-      password: 'dexel9dQ9R',
+        host: 'sql12.freesqldatabase.com',
+        port: 3306,
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
     );
 
     try {

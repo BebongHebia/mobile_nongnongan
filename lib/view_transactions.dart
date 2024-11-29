@@ -46,9 +46,9 @@ class _ViewTransactionState extends State<ViewTransaction> {
     final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12745725',
-        db: 'sql12745725',
-        password: 'dexel9dQ9R',
+        user: 'sql12747600',
+        db: 'sql12747600',
+        password: 'IypDAxHngN',
     ));
 
     try {
