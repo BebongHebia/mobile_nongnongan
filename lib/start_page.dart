@@ -22,7 +22,7 @@ class StartPage extends StatelessWidget {
               Text(
                 'Old Nongnongan Daily Transaction System',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Roboto',  // Optional: Use your desired font
                 ),

@@ -30,9 +30,9 @@ class _KapCalendarState extends State<KapCalendar> {
       final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
       ));
 
       var results = await conn.query('SELECT * FROM calendar_acts ORDER BY date ASC');

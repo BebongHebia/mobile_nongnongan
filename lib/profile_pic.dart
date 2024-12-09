@@ -28,9 +28,9 @@ class _ProfilePicState extends State<ProfilePic> {
   var settings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
   );
 
   try {

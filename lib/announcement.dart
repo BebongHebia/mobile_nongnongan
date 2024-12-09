@@ -29,9 +29,9 @@ class _AnnouncementsState extends State<Announcements> {
       final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
       ));
 
       var results = await conn.query('SELECT * FROM announcements ORDER BY created_at DESC');

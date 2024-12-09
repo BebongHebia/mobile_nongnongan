@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:nongnongan_mobile/admin_board.dart';
 import 'package:nongnongan_mobile/forgot_password.dart';
 import 'package:nongnongan_mobile/home_page.dart';
 import 'create_account.dart';
@@ -22,9 +23,9 @@ class _LoginPageState extends State<LoginPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
       );
 
       // Establish a connection
@@ -38,10 +39,32 @@ class _LoginPageState extends State<LoginPage> {
 
       if (results.isNotEmpty) {
         var userRow = results.first;
+        String role = userRow['role'];
+
+        if (role == 'User') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePage(userId: userRow['id'], complete_name:userRow['complete_name'], phone: userRow['phone'])),
+          MaterialPageRoute(
+            builder: (context) => HomePage(
+              userId: userRow['id'],
+              complete_name: userRow['complete_name'],
+              phone: userRow['phone'],
+            ),
+          ),
         );
+      } else if (role == 'Admin' || role == 'Staff-Secretary') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AdminBoard(
+              userId: userRow['id'],
+              complete_name: userRow['complete_name'],
+            ),
+          ),
+        );
+      }
+
+
         // Login successful
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login successful!')),

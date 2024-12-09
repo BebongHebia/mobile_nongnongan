@@ -51,15 +51,15 @@ Future<void> _create_transactions() async {
     final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
     );
 
     final conn = await MySqlConnection.connect(connectionSettings);
 
     var result = await conn.query(
-      'INSERT INTO transactions (transaction_code, user_id, document_type, name, address, bday, bplace, sex, civil_status, purpose, validity, or_no, status, ref_no, remarks, schedule, payable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO transactions (transaction_code, user_id, document_type, name, address, bday, bplace, sex, civil_status, purpose, validity, or_no, status, ref_no, remarks, schedule, payable, contact, sms_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         transactionCodeController.text,
         idController.text,
@@ -78,6 +78,8 @@ Future<void> _create_transactions() async {
         'No Remarks',
         'N/A',
         0.0,
+        phoneController.text,
+        'Pending',
       ],
     );
 
@@ -117,9 +119,9 @@ Future<void> _create_transactions() async {
     final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
     ));
 
     try {

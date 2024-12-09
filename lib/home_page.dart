@@ -70,11 +70,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchProfilePicture() async {
     var settings = ConnectionSettings(
-      host: 'sql12.freesqldatabase.com',
-      port: 3306,
-      user: 'sql12747600',
-      db: 'sql12747600',
-      password: 'IypDAxHngN',
+        host: 'sql12.freesqldatabase.com',
+        port: 3306,
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
     );
 
     try {
@@ -116,11 +116,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchLatestTransactionStatus() async {
     var settings = ConnectionSettings(
-      host: 'sql12.freesqldatabase.com',
-      port: 3306,
-      user: 'sql12747600',
-      db: 'sql12747600',
-      password: 'IypDAxHngN',
+        host: 'sql12.freesqldatabase.com',
+        port: 3306,
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
     );
 
     try {
@@ -156,11 +156,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchLatestTransactions() async {
     var settings = ConnectionSettings(
-      host: 'sql12.freesqldatabase.com',
-      port: 3306,
-      user: 'sql12747600',
-      db: 'sql12747600',
-      password: 'IypDAxHngN',
+        host: 'sql12.freesqldatabase.com',
+        port: 3306,
+        user: 'sql12749646',
+        db: 'sql12749646',
+        password: 'ybCUYliBya',
     );
 
     try {
