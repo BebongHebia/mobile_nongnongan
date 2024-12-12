@@ -4,8 +4,6 @@ import 'package:nongnongan_mobile/admin_board.dart';
 import 'package:nongnongan_mobile/forgot_password.dart';
 import 'package:nongnongan_mobile/home_page.dart';
 import 'create_account.dart';
-import 'dart:convert'; // For password hashing
-import 'package:crypto/crypto.dart'; // For password hashing
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,11 +18,8 @@ class _LoginPageState extends State<LoginPage> {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
-    // Hash the password
-    final hashedPassword = sha256.convert(utf8.encode(password)).toString();
-
     try {
-      // Use environment variables for database credentials
+      // Define the connection settings
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
@@ -39,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       // Query the database to check if the user exists
       var results = await conn.query(
         'SELECT * FROM users WHERE username = ? AND user_password = ?',
-        [username, hashedPassword],
+        [username, password], // Ensure you hash passwords in a real application
       );
 
       if (results.isNotEmpty) {
@@ -73,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login successful!')),
         );
+        // Navigate to the home page or dashboard
       } else {
         // Login failed
         ScaffoldMessenger.of(context).showSnackBar(
@@ -109,9 +105,10 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Login',
                   style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(height: 40),
 
@@ -160,18 +157,29 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   style: TextStyle(color: Colors.white), // White text
                 ),
-                SizedBox(height: 20),
 
-                // Stretched Login Button with Blue Background
+                // Stretched Login Button with Adjustments
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue, // Background color
+                      foregroundColor: Colors.white, // Text color
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(10), // Rounded corners
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 5), // Padding for height
+                      elevation: 2, // Elevation for a raised look
                     ),
                     onPressed: _login,
-                    child: Text('Login'),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold), // Text style
+                    ),
                   ),
                 ),
 
@@ -189,10 +197,8 @@ class _LoginPageState extends State<LoginPage> {
                               builder: (context) => CreateAccountPage()),
                         );
                       },
-                      child: Text(
-                        'Create Account',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: Text('Create Account',
+                          style: TextStyle(color: Colors.white)),
                     ),
                     TextButton(
                       onPressed: () {
@@ -202,10 +208,8 @@ class _LoginPageState extends State<LoginPage> {
                               builder: (context) => ForgotPasswordPage()),
                         );
                       },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: Text('Forgot Password?',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
