@@ -13,7 +13,8 @@ class RecoverAccountPage extends StatefulWidget {
 
 class _RecoverAccountPageState extends State<RecoverAccountPage> {
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   Future<void> _updatePassword() async {
     final password = _passwordController.text;
@@ -31,9 +32,9 @@ class _RecoverAccountPageState extends State<RecoverAccountPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       );
 
       // Establish connection

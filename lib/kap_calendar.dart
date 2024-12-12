@@ -11,7 +11,8 @@ class KapCalendar extends StatefulWidget {
   final String complete_name;
   final String phone;
 
-  KapCalendar({required this.userId, required this.complete_name, required this.phone});
+  KapCalendar(
+      {required this.userId, required this.complete_name, required this.phone});
 
   @override
   _KapCalendarState createState() => _KapCalendarState();
@@ -30,12 +31,13 @@ class _KapCalendarState extends State<KapCalendar> {
       final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       ));
 
-      var results = await conn.query('SELECT * FROM calendar_acts ORDER BY date ASC');
+      var results =
+          await conn.query('SELECT * FROM calendar_acts ORDER BY date ASC');
 
       List<Map<String, dynamic>> calendarActs = [];
       for (var row in results) {
@@ -79,77 +81,77 @@ class _KapCalendarState extends State<KapCalendar> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Kapitan Calendar'),
-    ),
-    drawer: Drawer(
-      // Drawer implementation (unchanged)
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(widget.complete_name),
-            accountEmail: Text(widget.phone),
-            currentAccountPicture: CircleAvatar(
-              child: Text(
-                widget.complete_name[0],
-                style: TextStyle(fontSize: 40.0),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Calendar'),
+      ),
+      drawer: Drawer(
+        // Drawer implementation (unchanged)
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(widget.complete_name),
+              accountEmail: Text(widget.phone),
+              currentAccountPicture: CircleAvatar(
+                child: Text(
+                  widget.complete_name[0],
+                  style: TextStyle(fontSize: 40.0),
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
               ),
             ),
-            decoration: BoxDecoration(
-              color: Colors.blue,
+            ListTile(
+              leading: Icon(Icons.dashboard),
+              title: Text('Dashboard'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            userId: widget.userId,
+                            complete_name: widget.complete_name,
+                            phone: widget.phone,
+                          )),
+                );
+              },
             ),
-          ),
-          ListTile(
-            leading: Icon(Icons.dashboard),
-            title: Text('Dashboard'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomePage(
-                          userId: widget.userId,
-                          complete_name: widget.complete_name,
-                          phone: widget.phone,
-                        )),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.request_page),
-            title: Text('My Request'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Requests(
-                          userId: widget.userId,
-                          complete_name: widget.complete_name,
-                          phone: widget.phone,
-                        )),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.announcement),
-            title: Text('Announcements'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Announcements(
-                          userId: widget.userId,
-                          complete_name: widget.complete_name,
-                          phone: widget.phone,
-                        )),
-              );
-            },
-          ),
-          ListTile(
+            ListTile(
+              leading: Icon(Icons.request_page),
+              title: Text('My Request'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Requests(
+                            userId: widget.userId,
+                            complete_name: widget.complete_name,
+                            phone: widget.phone,
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.announcement),
+              title: Text('Announcements'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Announcements(
+                            userId: widget.userId,
+                            complete_name: widget.complete_name,
+                            phone: widget.phone,
+                          )),
+                );
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.calendar_today),
-              title: Text('Kap Calendar'),
+              title: Text('Calendar'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -161,121 +163,120 @@ Widget build(BuildContext context) {
                 );
               },
             ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => LoginPage()),
-                (Route<dynamic> route) => false,
-              );
-            },
-          ),
-        ],
-      ),
-    ),
-    body: FutureBuilder<List<Map<String, dynamic>>>(
-      future: _calendarActsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No calendar events found.'));
-        }
-
-        final calendarActs = snapshot.data!;
-
-        return Column(
-          children: [
-            // Calendar widget
-            TableCalendar(
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              focusedDay: DateTime.now(),
-              eventLoader: (day) {
-                DateTime eventDate = DateTime(day.year, day.month, day.day);
-                return _events[eventDate]
-                        ?.map((event) => event['activity'] ?? '')
-                        .toList() ??
-                    [];
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  (Route<dynamic> route) => false,
+                );
               },
-              calendarStyle: CalendarStyle(
-                todayDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: Colors.orange,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              calendarBuilders: CalendarBuilders(
-                markerBuilder: (context, date, events) {
-                  if (events.isNotEmpty) {
-                    return Positioned(
-                      bottom: 1,
-                      right: 1,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    );
-                  }
-                  return SizedBox.shrink();
-                },
-              ),
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  DateTime eventDate =
-                      DateTime(selectedDay.year, selectedDay.month, selectedDay.day);
-                  _selectedDayEvents = _events[eventDate] ?? [];
-                });
-              },
-            ),
-            // Selected day events
-            _selectedDayEvents.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: _selectedDayEvents.length,
-                      itemBuilder: (context, index) {
-                        var event = _selectedDayEvents[index];
-                        return ListTile(
-                          title: Text(event['activity'] ?? 'No activity'),
-                          subtitle: Text(event['date'] ?? 'No date'),
-                        );
-                      },
-                    ),
-                  )
-                : Center(child: Text('No events for selected day.')),
-
-            Divider(), // Separate selected events and all events
-
-            // Display all rows from calendar_acts
-            Expanded(
-              child: ListView.builder(
-                itemCount: calendarActs.length,
-                itemBuilder: (context, index) {
-                  var calendarAct = calendarActs[index];
-                  return ListTile(
-                    title: Text(calendarAct['activity']),
-                    subtitle: Text(calendarAct['date']),
-                    trailing: Text(calendarAct['status']),
-                  );
-                },
-              ),
             ),
           ],
-        );
-      },
-    ),
-  );
-}
+        ),
+      ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: _calendarActsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No calendar events found.'));
+          }
 
+          final calendarActs = snapshot.data!;
+
+          return Column(
+            children: [
+              // Calendar widget
+              TableCalendar(
+                firstDay: DateTime.utc(2020, 1, 1),
+                lastDay: DateTime.utc(2030, 12, 31),
+                focusedDay: DateTime.now(),
+                eventLoader: (day) {
+                  DateTime eventDate = DateTime(day.year, day.month, day.day);
+                  return _events[eventDate]
+                          ?.map((event) => event['activity'] ?? '')
+                          .toList() ??
+                      [];
+                },
+                calendarStyle: CalendarStyle(
+                  todayDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.orange,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, date, events) {
+                    if (events.isNotEmpty) {
+                      return Positioned(
+                        bottom: 1,
+                        right: 1,
+                        child: Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      );
+                    }
+                    return SizedBox.shrink();
+                  },
+                ),
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    DateTime eventDate = DateTime(
+                        selectedDay.year, selectedDay.month, selectedDay.day);
+                    _selectedDayEvents = _events[eventDate] ?? [];
+                  });
+                },
+              ),
+              // Selected day events
+              _selectedDayEvents.isNotEmpty
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: _selectedDayEvents.length,
+                        itemBuilder: (context, index) {
+                          var event = _selectedDayEvents[index];
+                          return ListTile(
+                            title: Text(event['activity'] ?? 'No activity'),
+                            subtitle: Text(event['date'] ?? 'No date'),
+                          );
+                        },
+                      ),
+                    )
+                  : Center(child: Text('No events for selected day.')),
+
+              Divider(), // Separate selected events and all events
+
+              // Display all rows from calendar_acts
+              Expanded(
+                child: ListView.builder(
+                  itemCount: calendarActs.length,
+                  itemBuilder: (context, index) {
+                    var calendarAct = calendarActs[index];
+                    return ListTile(
+                      title: Text(calendarAct['activity']),
+                      subtitle: Text(calendarAct['date']),
+                      trailing: Text(calendarAct['status']),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }

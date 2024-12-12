@@ -68,11 +68,11 @@ class _RequestsState extends State<Requests> {
   Future<void> fetchTransactions() async {
     print('Fetching transactions for userId: ${widget.userId}'); // Log userId
     final conn = await MySqlConnection.connect(ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     ));
 
     try {
@@ -172,7 +172,7 @@ class _RequestsState extends State<Requests> {
             ),
             ListTile(
               leading: Icon(Icons.announcement),
-              title: Text('Kap Calendar'),
+              title: Text('Calendar'),
               onTap: () {
                 Navigator.push(
                   context,

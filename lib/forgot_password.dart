@@ -20,9 +20,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       );
 
       // Establish connection

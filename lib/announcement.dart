@@ -29,12 +29,13 @@ class _AnnouncementsState extends State<Announcements> {
       final conn = await MySqlConnection.connect(ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       ));
 
-      var results = await conn.query('SELECT * FROM announcements ORDER BY created_at DESC');
+      var results = await conn
+          .query('SELECT * FROM announcements ORDER BY created_at DESC');
 
       List<Map<String, dynamic>> announcements = [];
       for (var row in results) {
@@ -42,7 +43,8 @@ class _AnnouncementsState extends State<Announcements> {
           'id': row['id'],
           'added_by': row['added_by'],
           'title': row['title'],
-          'details': row['details']?.toString() ?? 'No details available', // Convert BLOB to String
+          'details': row['details']?.toString() ??
+              'No details available', // Convert BLOB to String
         });
       }
 
@@ -114,11 +116,12 @@ class _AnnouncementsState extends State<Announcements> {
             ListTile(
               leading: Icon(Icons.announcement),
               title: Text('Announcements'),
-              onTap: () {},  // Don't navigate anywhere here as we're already on the Announcements page
+              onTap:
+                  () {}, // Don't navigate anywhere here as we're already on the Announcements page
             ),
             ListTile(
               leading: Icon(Icons.calendar_today),
-              title: Text('Kap Calendar'),
+              title: Text('Calendar'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -130,7 +133,6 @@ class _AnnouncementsState extends State<Announcements> {
                 );
               },
             ),
-            
             Divider(),
             ListTile(
               leading: Icon(Icons.logout),
@@ -162,15 +164,17 @@ class _AnnouncementsState extends State<Announcements> {
             itemBuilder: (context, index) {
               final announcement = announcements[index];
               String truncatedDetails = announcement['details']
-                      .toString()
-                      .length > 50
+                          .toString()
+                          .length >
+                      50
                   ? '${announcement['details'].toString().substring(0, 50)}...'
                   : announcement['details'].toString();
 
               return Card(
                 margin: EdgeInsets.all(10),
                 child: ListTile(
-                  leading: Icon(Icons.announcement, color: Colors.blue), // Add announcement icon
+                  leading: Icon(Icons.announcement,
+                      color: Colors.blue), // Add announcement icon
                   title: Text(announcement['title']),
                   subtitle: Text(truncatedDetails),
                   trailing: Text('By: ${announcement['added_by']}'),

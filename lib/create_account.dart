@@ -7,8 +7,7 @@ class CreateAccountPage extends StatefulWidget {
   _CreateAccountPageState createState() => _CreateAccountPageState();
 }
 
-
-  final List<String> civilStatusOptions = [
+final List<String> civilStatusOptions = [
   'Single',
   'Married',
   'Widowed',
@@ -36,7 +35,6 @@ final List<String> regionOptions = [
 ];
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-
 // Selected values for dropdowns
   String? _selectedCivilStatus;
   String? _selectedRegion;
@@ -46,7 +44,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   // Controllers for new attributes
   final TextEditingController _civilStatusController = TextEditingController();
@@ -75,9 +74,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       );
 
       final conn = await MySqlConnection.connect(connectionSettings);
@@ -143,12 +142,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Account'),
@@ -204,7 +199,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 SizedBox(height: 20),
                 DropdownButtonFormField<String>(
                   value: _selectedSex,
-                  items: <String>['Male', 'Female', 'Other'].map((String value) {
+                  items:
+                      <String>['Male', 'Female', 'Other'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -272,7 +268,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                 SizedBox(height: 20),
+                SizedBox(height: 20),
                 DropdownButtonFormField<String>(
                   value: _selectedRegion,
                   items: regionOptions.map((String value) {

@@ -9,7 +9,8 @@ class ProfilePic extends StatefulWidget {
   final String complete_name;
   final String phone;
 
-  ProfilePic({required this.userId, required this.complete_name, required this.phone});
+  ProfilePic(
+      {required this.userId, required this.complete_name, required this.phone});
 
   @override
   _ProfilePicState createState() => _ProfilePicState();
@@ -25,67 +26,69 @@ class _ProfilePicState extends State<ProfilePic> {
   }
 
   Future<void> _loadProfilePicture() async {
-  var settings = ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
-  );
+    var settings = ConnectionSettings(
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
+    );
 
-  try {
-    final conn = await MySqlConnection.connect(settings);
-    final results = await conn.query('SELECT profile FROM users WHERE id = ?', [widget.userId]);
+    try {
+      final conn = await MySqlConnection.connect(settings);
+      final results = await conn
+          .query('SELECT profile FROM users WHERE id = ?', [widget.userId]);
 
-    if (results.isNotEmpty && results.first['profile'] != null) {
-      final blob = results.first['profile'];
+      if (results.isNotEmpty && results.first['profile'] != null) {
+        final blob = results.first['profile'];
 
-      // Check if the blob is actually of type Blob
-      if (blob is Blob) {
-        final imageData = await blob.toBytes(); // Convert Blob to byte array
-        print("Image size: ${imageData.length} bytes");
+        // Check if the blob is actually of type Blob
+        if (blob is Blob) {
+          final imageData = await blob.toBytes(); // Convert Blob to byte array
+          print("Image size: ${imageData.length} bytes");
 
-        // Check if the byte data length is reasonable
-        if (imageData.isNotEmpty && imageData.length < 1000000) {
-          // Proceed to set the state with the valid image data
-          setState(() {
-            profilePicture = Uint8List.fromList(imageData); // Convert List<int> to Uint8List
-          });
+          // Check if the byte data length is reasonable
+          if (imageData.isNotEmpty && imageData.length < 1000000) {
+            // Proceed to set the state with the valid image data
+            setState(() {
+              profilePicture = Uint8List.fromList(
+                  imageData); // Convert List<int> to Uint8List
+            });
+          } else {
+            print("Image data is empty or too large.");
+            setState(() {
+              profilePicture = null;
+            });
+          }
         } else {
-          print("Image data is empty or too large.");
+          print("Unexpected blob type: ${blob.runtimeType}");
           setState(() {
             profilePicture = null;
           });
         }
       } else {
-        print("Unexpected blob type: ${blob.runtimeType}");
+        print("No profile picture found for userId: ${widget.userId}");
         setState(() {
           profilePicture = null;
         });
       }
-    } else {
-      print("No profile picture found for userId: ${widget.userId}");
+
+      await conn.close();
+    } catch (e) {
+      print("Error fetching profile picture: $e");
       setState(() {
         profilePicture = null;
       });
     }
-
-    await conn.close();
-  } catch (e) {
-    print("Error fetching profile picture: $e");
-    setState(() {
-      profilePicture = null;
-    });
   }
-}
 
   Future<void> _updateProfilePicture(Uint8List imageBytes) async {
     var settings = ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12747600',
-        db: 'sql12747600',
-        password: 'IypDAxHngN',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12747600',
+      db: 'sql12747600',
+      password: 'IypDAxHngN',
     );
 
     try {
@@ -172,7 +175,8 @@ class _ProfilePicState extends State<ProfilePic> {
             ElevatedButton(
               onPressed: () async {
                 final ImagePicker picker = ImagePicker();
-                final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                final XFile? image =
+                    await picker.pickImage(source: ImageSource.gallery);
 
                 if (image != null) {
                   final imageBytes = await image.readAsBytes();

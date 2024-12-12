@@ -10,7 +10,8 @@ class OrgChart extends StatelessWidget {
   final String complete_name;
   final String phone;
 
-  OrgChart({required this.userId, required this.complete_name, required this.phone});
+  OrgChart(
+      {required this.userId, required this.complete_name, required this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,8 @@ class OrgChart extends StatelessWidget {
             // User Account Header
             UserAccountsDrawerHeader(
               accountName: Text(complete_name),
-              accountEmail: Text(phone), // You can replace with user email if available
+              accountEmail:
+                  Text(phone), // You can replace with user email if available
               currentAccountPicture: CircleAvatar(
                 child: Text(
                   complete_name[0], // Display first letter of the name
@@ -43,7 +45,12 @@ class OrgChart extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  HomePage(userId: userId, complete_name: complete_name, phone: phone,)),
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            userId: userId,
+                            complete_name: complete_name,
+                            phone: phone,
+                          )),
                 );
               },
             ),
@@ -53,7 +60,12 @@ class OrgChart extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  Requests(userId: userId, complete_name: complete_name, phone: phone,)),
+                  MaterialPageRoute(
+                      builder: (context) => Requests(
+                            userId: userId,
+                            complete_name: complete_name,
+                            phone: phone,
+                          )),
                 );
               },
             ),
@@ -63,17 +75,27 @@ class OrgChart extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  Announcements(userId: userId, complete_name: complete_name, phone: phone,)),
+                  MaterialPageRoute(
+                      builder: (context) => Announcements(
+                            userId: userId,
+                            complete_name: complete_name,
+                            phone: phone,
+                          )),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.announcement),
-              title: Text('Kap Calendar'),
+              title: Text('Calendar'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  KapCalendar(userId: userId, complete_name: complete_name, phone: phone,)),
+                  MaterialPageRoute(
+                      builder: (context) => KapCalendar(
+                            userId: userId,
+                            complete_name: complete_name,
+                            phone: phone,
+                          )),
                 );
               },
             ),
@@ -84,12 +106,16 @@ class OrgChart extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>  OrgChart(userId: userId, complete_name: complete_name, phone: phone,)),
+                  MaterialPageRoute(
+                      builder: (context) => OrgChart(
+                            userId: userId,
+                            complete_name: complete_name,
+                            phone: phone,
+                          )),
                 );
               },
             ),
 
-            
             Divider(),
             ListTile(
               leading: Icon(Icons.logout),
@@ -97,7 +123,9 @@ class OrgChart extends StatelessWidget {
               onTap: () {
                 // Perform logout action and navigate to the login screen
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => LoginPage()), // Navigate to the login page
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LoginPage()), // Navigate to the login page
                   (Route<dynamic> route) => false, // Remove all previous routes
                 );
               },
@@ -109,7 +137,6 @@ class OrgChart extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            
             // You can add additional content here if needed
           ],
         ),

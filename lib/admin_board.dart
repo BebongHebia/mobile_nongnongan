@@ -9,7 +9,9 @@ class AdminBoard extends StatefulWidget {
   final int userId;
   final String complete_name;
 
-  const AdminBoard({Key? key, required this.userId, required this.complete_name}) : super(key: key);
+  const AdminBoard(
+      {Key? key, required this.userId, required this.complete_name})
+      : super(key: key);
 
   @override
   _AdminBoardState createState() => _AdminBoardState();
@@ -37,13 +39,14 @@ class _AdminBoardState extends State<AdminBoard> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       );
 
       final conn = await MySqlConnection.connect(connectionSettings);
-      final results = await conn.query('SELECT * FROM transactions ORDER BY created_at DESC');
+      final results = await conn
+          .query('SELECT * FROM transactions ORDER BY created_at DESC');
       await conn.close();
 
       return results
@@ -72,9 +75,9 @@ class _AdminBoardState extends State<AdminBoard> {
       final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
       );
 
       final conn = await MySqlConnection.connect(connectionSettings);
@@ -93,15 +96,28 @@ class _AdminBoardState extends State<AdminBoard> {
         final document_type = row['document_type'];
         final schedule = row['schedule'];
         final status = row['status'];
+        final payable = row['payable'];
 
-        String message = "Good Day/Evening " + name + " your requested document " + document_type + " is now " + status + " Please claim, " + schedule + " Transaction Code : " + transaction_code;
+        String message = "Good Day/Evening " +
+            name +
+            " your requested document " +
+            document_type +
+            " is now " +
+            status +
+            " Please claim, " +
+            schedule +
+            " Transaction Code : " +
+            transaction_code +
+            " your payable is " +
+            payable;
 
         // Send SMS logic
         final isSmsSent = await sendSms(contact, message);
 
         if (isSmsSent) {
           // Update the sms_status to "Sent"
-          await conn.query('UPDATE transactions SET sms_status = "Sent" WHERE id = ?', [id]);
+          await conn.query(
+              'UPDATE transactions SET sms_status = "Sent" WHERE id = ?', [id]);
         }
       }
 
@@ -113,18 +129,18 @@ class _AdminBoardState extends State<AdminBoard> {
 
   final _easySmsPlugin = EasySms();
 
-Future<bool> sendSms(String contact, String message) async {
-  try {
-    await _easySmsPlugin.requestSmsPermission();
-    await _easySmsPlugin.sendSms(phone: contact, msg: message);
-    return true; // Indicate success
-  } catch (err) {
-    if (kDebugMode) {
-      print('Failed to send SMS to $contact: ${err.toString()}');
+  Future<bool> sendSms(String contact, String message) async {
+    try {
+      await _easySmsPlugin.requestSmsPermission();
+      await _easySmsPlugin.sendSms(phone: contact, msg: message);
+      return true; // Indicate success
+    } catch (err) {
+      if (kDebugMode) {
+        print('Failed to send SMS to $contact: ${err.toString()}');
+      }
+      return false; // Indicate failure
     }
-    return false; // Indicate failure
   }
-}
 
   @override
   Widget build(BuildContext context) {

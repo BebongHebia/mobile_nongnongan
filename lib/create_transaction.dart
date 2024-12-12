@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:intl/intl.dart';
-import 'package:nongnongan_mobile/requests.dart';// For formatting date and time
+import 'package:nongnongan_mobile/requests.dart'; // For formatting date and time
 
 class CreateTransaction extends StatefulWidget {
   final int userId;
@@ -32,7 +32,8 @@ class _CreateTransactionState extends State<CreateTransaction> {
   final TextEditingController documentTypeController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController transactionCodeController = TextEditingController();
+  final TextEditingController transactionCodeController =
+      TextEditingController();
   final TextEditingController purposeController = TextEditingController();
   final TextEditingController civilStatusController = TextEditingController();
 
@@ -45,60 +46,59 @@ class _CreateTransactionState extends State<CreateTransaction> {
     'Separated'
   ];
 
-
-Future<void> _create_transactions() async {
-  try {
-    final connectionSettings = ConnectionSettings(
+  Future<void> _create_transactions() async {
+    try {
+      final connectionSettings = ConnectionSettings(
         host: 'sql12.freesqldatabase.com',
         port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
-    );
+        user: 'sql12751398',
+        db: 'sql12751398',
+        password: 'T8m87TYNGK',
+      );
 
-    final conn = await MySqlConnection.connect(connectionSettings);
+      final conn = await MySqlConnection.connect(connectionSettings);
 
-    var result = await conn.query(
-      'INSERT INTO transactions (transaction_code, user_id, document_type, name, address, bday, bplace, sex, civil_status, purpose, validity, or_no, status, ref_no, remarks, schedule, payable, contact, sms_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [
-        transactionCodeController.text,
-        idController.text,
-        documentTypeController.text,
-        nameController.text,
-        addressController.text,
-        bdayController.text,
-        bplaceController.text,
-        sexController.text,
-        civilStatusController.text,
-        purposeController.text,
-        'N/A',
-        'N/A',
-        'Pending',
-        'N/A',
-        'No Remarks',
-        'N/A',
-        0.0,
-        phoneController.text,
-        'Pending',
-      ],
-    );
+      var result = await conn.query(
+        'INSERT INTO transactions (transaction_code, user_id, document_type, name, address, bday, bplace, sex, civil_status, purpose, validity, or_no, status, ref_no, remarks, schedule, payable, contact, sms_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [
+          transactionCodeController.text,
+          idController.text,
+          documentTypeController.text,
+          nameController.text,
+          addressController.text,
+          bdayController.text,
+          bplaceController.text,
+          sexController.text,
+          civilStatusController.text,
+          purposeController.text,
+          'N/A',
+          'N/A',
+          'Pending',
+          'N/A',
+          'No Remarks',
+          'N/A',
+          0.0,
+          phoneController.text,
+          'Pending',
+        ],
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Transaction created successfully')),
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Transaction created successfully')),
+      );
 
-    await conn.close();
+      await conn.close();
 
-    // Call the callback to refresh the data table
-    widget.onTransactionCreated(); // Add this line
+      // Call the callback to refresh the data table
+      widget.onTransactionCreated(); // Add this line
 
-    Navigator.pop(context);
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: $e')),
-    );
+      Navigator.pop(context);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
   }
-}
 
   @override
   void initState() {
@@ -111,22 +111,24 @@ Future<void> _create_transactions() async {
 
   void initializeTransactionCode() {
     final now = DateTime.now();
-    final formattedDate = DateFormat('yyyyMMdd_HHmmss').format(now); // Format: yyyyMMdd_HHmmss
+    final formattedDate =
+        DateFormat('yyyyMMdd_HHmmss').format(now); // Format: yyyyMMdd_HHmmss
     transactionCodeController.text = formattedDate;
   }
 
   Future<void> fetchData() async {
     final conn = await MySqlConnection.connect(ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     ));
 
     try {
       // Execute the query
-      var results = await conn.query('SELECT * FROM users WHERE id = ?', [widget.userId]);
+      var results =
+          await conn.query('SELECT * FROM users WHERE id = ?', [widget.userId]);
       if (results.isNotEmpty) {
         setState(() {
           userData = results.first.fields;
@@ -149,127 +151,128 @@ Future<void> _create_transactions() async {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Create ' + widget.selected_document),
-    ),
-    body: Center(
-      child: userData == null
-          ? CircularProgressIndicator()
-          : ListView( // Change to ListView
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                TextFormField(
-                  controller: documentTypeController,
-                  decoration: InputDecoration(
-                    labelText: 'Document Type',
-                    border: OutlineInputBorder(),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Create ' + widget.selected_document),
+      ),
+      body: Center(
+        child: userData == null
+            ? CircularProgressIndicator()
+            : ListView(
+                // Change to ListView
+                padding: const EdgeInsets.all(16.0),
+                children: [
+                  TextFormField(
+                    controller: documentTypeController,
+                    decoration: InputDecoration(
+                      labelText: 'Document Type',
+                      border: OutlineInputBorder(),
+                    ),
+                    readOnly: true, // This makes the field read-only
                   ),
-                  readOnly: true, // This makes the field read-only
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: idController,
-                  decoration: InputDecoration(
-                    labelText: 'User ID',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: idController,
+                    decoration: InputDecoration(
+                      labelText: 'User ID',
+                      border: OutlineInputBorder(),
+                    ),
+                    readOnly: true,
                   ),
-                  readOnly: true,
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Complete Name',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Complete Name',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: sexController,
-                  decoration: InputDecoration(
-                    labelText: 'Sex',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: sexController,
+                    decoration: InputDecoration(
+                      labelText: 'Sex',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: bdayController,
-                  decoration: InputDecoration(
-                    labelText: 'Date of Birth',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: bdayController,
+                    decoration: InputDecoration(
+                      labelText: 'Date of Birth',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: bplaceController,
-                  decoration: InputDecoration(
-                    labelText: 'Place of Birth',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: bplaceController,
+                    decoration: InputDecoration(
+                      labelText: 'Place of Birth',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Address',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: addressController,
+                    decoration: InputDecoration(
+                      labelText: 'Address',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: phoneController,
-                  decoration: InputDecoration(
-                    labelText: 'Phone',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                      labelText: 'Phone',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: civilStatusController,
-                  decoration: InputDecoration(
-                    labelText: 'Purpose',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: civilStatusController,
+                    decoration: InputDecoration(
+                      labelText: 'Purpose',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: purposeController,
-                  decoration: InputDecoration(
-                    labelText: 'Purpose',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: purposeController,
+                    decoration: InputDecoration(
+                      labelText: 'Purpose',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: transactionCodeController,
-                  decoration: InputDecoration(
-                    labelText: 'Transaction Code',
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 10),
+                  TextFormField(
+                    controller: transactionCodeController,
+                    decoration: InputDecoration(
+                      labelText: 'Transaction Code',
+                      border: OutlineInputBorder(),
+                    ),
+                    readOnly:
+                        true, // Set to true if you don't want this field to be editable
                   ),
-                  readOnly: true, // Set to true if you don't want this field to be editable
-                ),
 
-                SizedBox(height: 10),
+                  SizedBox(height: 10),
 
-
-                 // Links for "Create Account" and "Forgot Password"
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(onPressed: (){
-                      _create_transactions();
-                    }, child: Text("Submit Requests"))
-                  ],
-                ),
-              ],
-              
-            ),
-    ),
-  );
-}
-
+                  // Links for "Create Account" and "Forgot Password"
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            _create_transactions();
+                          },
+                          child: Text("Submit Requests"))
+                    ],
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
 
   @override
   void dispose() {

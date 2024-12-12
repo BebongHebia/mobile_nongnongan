@@ -70,11 +70,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchProfilePicture() async {
     var settings = ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     );
 
     try {
@@ -116,11 +116,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchLatestTransactionStatus() async {
     var settings = ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     );
 
     try {
@@ -156,11 +156,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _fetchLatestTransactions() async {
     var settings = ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     );
 
     try {
@@ -445,10 +445,10 @@ class _HomePageState extends State<HomePage> {
                 // You can repeat the above row of the DataTable with the Divider for each row
               ],
             ),
-            
+
             ElevatedButton(
               onPressed: () => {
-                  Navigator.push(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Requests(

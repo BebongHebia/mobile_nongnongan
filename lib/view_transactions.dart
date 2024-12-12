@@ -44,11 +44,11 @@ class _ViewTransactionState extends State<ViewTransaction> {
 
   Future<void> fetchTransactionDetails() async {
     final conn = await MySqlConnection.connect(ConnectionSettings(
-        host: 'sql12.freesqldatabase.com',
-        port: 3306,
-        user: 'sql12749646',
-        db: 'sql12749646',
-        password: 'ybCUYliBya',
+      host: 'sql12.freesqldatabase.com',
+      port: 3306,
+      user: 'sql12751398',
+      db: 'sql12751398',
+      password: 'T8m87TYNGK',
     ));
 
     try {
@@ -75,7 +75,8 @@ class _ViewTransactionState extends State<ViewTransaction> {
           transactionCode = row['transaction_code'] ?? 'Unknown';
           documentType = row['document_type'] ?? 'N/A';
           status = row['status'] ?? 'Unknown';
-          date = DateFormat('yyyy-MM-dd').format(row['created_at']); // Format the date
+          date = DateFormat('yyyy-MM-dd')
+              .format(row['created_at']); // Format the date
           isLoading = false; // Update loading state
         });
       } else {
@@ -95,144 +96,148 @@ class _ViewTransactionState extends State<ViewTransaction> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('View My Transaction'),
-    ),
-    body: isLoading
-        ? Center(child: CircularProgressIndicator()) // Show loading indicator while fetching
-        : SingleChildScrollView( // Enable scrolling
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Status Panel Card
-                  Card(
-                    color: getStatusColor(status), // Get the color based on the status
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        status,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('View My Transaction'),
+      ),
+      body: isLoading
+          ? Center(
+              child:
+                  CircularProgressIndicator()) // Show loading indicator while fetching
+          : SingleChildScrollView(
+              // Enable scrolling
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Status Panel Card
+                    Card(
+                      color: getStatusColor(
+                          status), // Get the color based on the status
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          status,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16.0), // Add some spacing below the card
+                    SizedBox(height: 16.0), // Add some spacing below the card
 
-                  // Transaction Details
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'User ID'),
-                    initialValue: userId.toString(),
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Complete Name'),
-                    initialValue: name,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Date of Birth'),
-                    initialValue: bday,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Sex'),
-                    initialValue: sex,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Place of Birth'),
-                    initialValue: bplace,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Civil Status'),
-                    initialValue: civil_status,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Address'),
-                    initialValue: address,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Purpose'),
-                    initialValue: purpose,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Validity'),
-                    initialValue: validity,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'O.R No.#'),
-                    initialValue: or_no,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Ref No.#'),
-                    initialValue: ref_no,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Remarks'),
-                    initialValue: remarks,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Schedule'),
-                    initialValue: schedule,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Payable'),
-                    initialValue: payable.toString(), // Convert to string for display
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Transaction Code'),
-                    initialValue: transactionCode,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Document Type'),
-                    initialValue: documentType,
-                    readOnly: true,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'Date'),
-                    initialValue: date,
-                    readOnly: true,
-                  ),
-                ],
+                    // Transaction Details
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'User ID'),
+                      initialValue: userId.toString(),
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Complete Name'),
+                      initialValue: name,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Date of Birth'),
+                      initialValue: bday,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Sex'),
+                      initialValue: sex,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Place of Birth'),
+                      initialValue: bplace,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Civil Status'),
+                      initialValue: civil_status,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Address'),
+                      initialValue: address,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Purpose'),
+                      initialValue: purpose,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Validity'),
+                      initialValue: validity,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'O.R No.#'),
+                      initialValue: or_no,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Ref No.#'),
+                      initialValue: ref_no,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Remarks'),
+                      initialValue: remarks,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Schedule'),
+                      initialValue: schedule,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Payable'),
+                      initialValue:
+                          payable.toString(), // Convert to string for display
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration:
+                          InputDecoration(labelText: 'Transaction Code'),
+                      initialValue: transactionCode,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Document Type'),
+                      initialValue: documentType,
+                      readOnly: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(labelText: 'Date'),
+                      initialValue: date,
+                      readOnly: true,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-  );
-}
+    );
+  }
 
 // Method to get the status color based on the status
-Color getStatusColor(String status) {
-  switch (status) {
-    case 'Pending':
-      return Colors.orange; // Orange for Pending
-    case 'Received':
-      return Colors.blue; // Blue for Received
-    case 'Decline':
-      return Colors.red;
-    case 'Completed':
-      return Colors.green; // Red for Decline
-    default:
-      return Colors.grey; // Default color if status doesn't match
+  Color getStatusColor(String status) {
+    switch (status) {
+      case 'Pending':
+        return Colors.orange; // Orange for Pending
+      case 'Received':
+        return Colors.blue; // Blue for Received
+      case 'Decline':
+        return Colors.red;
+      case 'Completed':
+        return Colors.green; // Red for Decline
+      default:
+        return Colors.grey; // Default color if status doesn't match
+    }
   }
-}
-
-
 }
